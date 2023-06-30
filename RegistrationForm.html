@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registration Form</title>
+  <style>
+
+    body {
+      background-color: #000000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form-group input,
+    .form-group select {
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      background-color: #232323;
+      color: #fff;
+    }
+
+    .form-group select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 16l-6-6h12z'/%3E%3C/svg%3E") no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+      width: 100%;
+    }
+
+    .form-group select {
+      background-color: #232323;
+    }
+
+    .form-group .button-group {
+      display: flex;
+    }
+
+    .form-group .button-group button {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      color: #fff;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    .form-group .button-group button[type="submit"] {
+      background-color: #5cb85c;
+      transition: 0.5s;
+    }
+
+    .form-group .button-group button[type="button"] {
+      background-color: #d9534f;
+      transition: 0.5s;
+    }
+
+    .form-group .button-group button[type="submit"]:hover {
+      background-color: #32d74b;
+      transform: scale(1.02);
+      transition: 0.5s;
+    }
+
+    .form-group .button-group button[type="button"]:hover {
+      background-color: #ff453a;
+      transform: scale(1.02);
+      transition: 0.5s;
+    }
+
+    .form-group .button-group button:last-child {
+      margin-right: 0;
+    }
+
+    .user-list {
+      margin-top: 30px;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .user-list th,
+    .user-list td {
+      padding: 10px;
+      text-align: left;
+    }
+
+    .user-list th {
+      background-color: #232323;
+    }
+
+    .user-list td {
+      background-color: #0b0b0b;
+    }
+
+    .user-list-caption {
+      text-align: center;
+      font-weight: bold;
+      font-size: 24px;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        max-width: 100%;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Registration Form</h2>
+    <form id="registration-form">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email ID:</label>
+        <input type="email" id="email" required>
+      </div>
+      <div class="form-group">
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" required>
+      </div>
+      <div class="form-group">
+        <label for="gender">Gender:</label>
+        <select id="gender" required>
+          <option value="">Select</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <div class="button-group">
+          <button type="submit">Register</button>
+          <button type="button" onclick="resetForm()">Reset</button>
+        </div>
+      </div>
+    </form>
+    <table class="user-list" style="display: none;">
+      <caption class="user-list-caption">Registered Users</caption>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email ID</th>
+          <th>Date of Birth</th>
+          <th>Gender</th>
+        </tr>
+      </thead>
+      <tbody id="user-data"></tbody>
+    </table>
+  </div>
+
+  <script>
+    function resetForm() {
+      document.getElementById("registration-form").reset();
+    }
+
+    document.getElementById("registration-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      var name = document.getElementById("name").value;
+      var email = document.getElementById("email").value;
+      var dob = document.getElementById("dob").value;
+      var gender = document.getElementById("gender").value;
+      var dobFormatted = new Date(dob).toLocaleDateString('en-GB');
+      var userData = document.createElement("tr");
+      userData.innerHTML = "<td>" + name + "</td><td>" + email + "</td><td>" + dobFormatted + "</td><td>" + gender + "</td>";
+
+      document.getElementById("user-data").appendChild(userData);
+      document.querySelector(".user-list").style.display = "table";
+
+      resetForm();
+    });
+  </script>
+
+</body>
+</html>
